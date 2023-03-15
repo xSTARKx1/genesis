@@ -2,6 +2,8 @@ import usePagination from '../../app/UsePagination';
 import { CourseCard } from '../../components';
 import { createArray } from '../../services';
 
+import './index.scss';
+
 const AllCourses = () => {
   const courses = [
     {
@@ -860,7 +862,7 @@ const AllCourses = () => {
   return (
     <div className='main-wrapper'>
       <h1>All courses</h1>
-      <ul>
+      <ul className='course-list'>
         {courses.slice(firstContentIndex, lastContentIndex).map((course) => {
           return (
             <li key={course.id}>
@@ -868,25 +870,25 @@ const AllCourses = () => {
             </li>
           );
         })}
-        <div className='pagination'>
-          <button onClick={prevPage} className='page'>
-            &larr;
-          </button>
-
-          {createArray(totalPages).map((el) => (
-            <button
-              onClick={() => setPage(el + 1)}
-              key={el}
-              className={`page ${page === el + 1 ? 'active' : ''}`}
-            >
-              {el + 1}
-            </button>
-          ))}
-          <button onClick={nextPage} className='page'>
-            &rarr;
-          </button>
-        </div>
       </ul>
+      <div className='pagination'>
+        <button onClick={prevPage} className='page'>
+          &larr;
+        </button>
+
+        {createArray(totalPages).map((el) => (
+          <button
+            onClick={() => setPage(el + 1)}
+            key={el}
+            className={`page ${page === el + 1 ? 'active' : ''}`}
+          >
+            {el + 1}
+          </button>
+        ))}
+        <button onClick={nextPage} className='page'>
+          &rarr;
+        </button>
+      </div>
     </div>
   );
 };
