@@ -1,0 +1,38 @@
+
+.pagination {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 10px;
+  margin: 20px 0 50px;
+}
+
+.pagination .text {
+  opacity: 0.6;
+}
+
+.page {
+  color: #3d3d3d;
+  height: 3rem;
+  width: 3rem;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-weight: bold;
+  border: solid 0.2rem rgba(211, 173, 247, 0.4);
+  background-color: transparent;
+  border-radius: 0.7rem;
+  cursor: pointer;
+  transition: background-color 0.5s;
+}
+
+.page.active,
+.page:hover {
+  background-color: rgba(211, 173, 247, 0.4);
+}
+
+.page.disabled {
+  background-color: transparent;
+  cursor: not-allowed;
+  opacity: 0.5;
+}
