@@ -57,6 +57,10 @@
   .list-item {
     cursor: pointer;
   }
+  .title-wrapper {
+    display: flex;
+    justify-content: space-between;
+  }
   .title {
   font-family: 'Roboto', sans-serif;
   font-weight: 400;

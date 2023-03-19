@@ -109,8 +109,10 @@ const Course = () => {
                         alt={title}
                         src={`${previewImageLink}/lesson-${order}.webp`}
                       />
-                      <div className='title'>
-                        Lesson {order}: {title}{' '}
+                      <div className='title-wrapper'>
+                        <div className='title'>
+                          Lesson {order}: {title}{' '}
+                        </div>
                         {isLockedLesson ? <LockOutlined /> : null}
                       </div>
                     </li>
