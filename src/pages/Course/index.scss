@@ -1,0 +1,9 @@
+.course-image {
+  width: 100%;
+}
+
+.lessons-list {
+  display: grid;
+  grid-gap: 20px 30px;
+  grid-template-columns: repeat(5, [col] 1fr);
+}
