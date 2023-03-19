@@ -1,5 +1,4 @@
-import { FC, useRef } from 'react';
-import ReactHlsPlayer from 'react-hls-player';
+import { FC } from 'react';
 import { Link } from 'react-router-dom';
 import { Tag, Rate, Space } from 'antd';
 
@@ -11,29 +10,16 @@ interface Props {
   course: Course;
 }
 const CourseCard: FC<Props> = (props) => {
-  const playerRef = useRef<HTMLVideoElement>(null);
   const { course } = props;
 
   return (
     <div className='card'>
       <div className='image-wrapper'>
-        {/*{course.meta.courseVideoPreview ? (*/}
-        {/*  <ReactHlsPlayer*/}
-        {/*    src={course.meta.courseVideoPreview.link}*/}
-        {/*    autoPlay={false}*/}
-        {/*    controls={true}*/}
-        {/*    muted={false}*/}
-        {/*    width='100%'*/}
-        {/*    height='auto'*/}
-        {/*    playerRef={playerRef}*/}
-        {/*  />*/}
-        {/*) : (*/}
         <img
           src={`${course.previewImageLink}/cover.webp`}
           alt={course.title}
           className='card__image'
         />
-        {/*)}*/}
       </div>
       <div className='card__info'>
         <h2 className='title'>{course.title}</h2>

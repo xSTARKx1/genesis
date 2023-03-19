@@ -1,13 +1,14 @@
 import { useEffect } from 'react';
 
 import usePagination from '../../app/UsePagination';
-import { CourseCard, Pagination } from '../../components';
+import { CourseCard, Pagination, Spinner } from '../../components';
 import { useAppDispatch, useAppSelector } from '../../app/hooks';
 import {
   getCoursesAsync,
   selectCourses,
   selectToken,
   resetCourse,
+  allCourseStatus,
 } from '../../features/courses/coursesSlice';
 
 import './index.scss';
@@ -16,6 +17,7 @@ const AllCourses = () => {
   const dispatch = useAppDispatch();
   const courses = useAppSelector(selectCourses);
   const token = useAppSelector(selectToken);
+  const loadingStatus = useAppSelector(allCourseStatus);
 
   useEffect(() => {
     if (token) {
@@ -40,23 +42,31 @@ const AllCourses = () => {
   return (
     <div className='main-wrapper'>
       <h1 className='page-title'>All courses</h1>
-      <ul className='course-list'>
-        {courses.slice(firstContentIndex, lastContentIndex).map((course) => {
-          return (
-            <li key={course.id}>
-              <CourseCard course={course} />
-            </li>
-          );
-        })}
-      </ul>
-      {courses.length > 0 && (
-        <Pagination
-          nextPage={nextPage}
-          prevPage={prevPage}
-          page={page}
-          setPage={setPage}
-          totalPages={totalPages}
-        />
+      {loadingStatus === 'idle' ? (
+        <>
+          <ul className='course-list'>
+            {courses
+              .slice(firstContentIndex, lastContentIndex)
+              .map((course) => {
+                return (
+                  <li key={course.id}>
+                    <CourseCard course={course} />
+                  </li>
+                );
+              })}
+          </ul>
+          {courses.length > 0 && (
+            <Pagination
+              nextPage={nextPage}
+              prevPage={prevPage}
+              page={page}
+              setPage={setPage}
+              totalPages={totalPages}
+            />
+          )}
+        </>
+      ) : (
+        <Spinner />
       )}
     </div>
   );

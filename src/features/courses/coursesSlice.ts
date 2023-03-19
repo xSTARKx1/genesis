@@ -22,9 +22,9 @@ const initialState: coursesState = {
   accessToken: null,
   tokenStatus: 'idle',
   courses: [],
-  coursesStatus: 'idle',
+  coursesStatus: 'loading',
   course: null,
-  courseStatus: 'idle',
+  courseStatus: 'loading',
 };
 
 export const getTokenAsync = createAsyncThunk(
@@ -97,6 +97,9 @@ export const coursesSlice = createSlice({
 export const selectToken = (state: RootState) => state.courses.accessToken;
 export const selectCourses = (state: RootState) => state.courses.courses;
 export const selectCourse = (state: RootState) => state.courses.course;
+export const courseStatus = (state: RootState) => state.courses.courseStatus;
+export const allCourseStatus = (state: RootState) =>
+  state.courses.coursesStatus;
 
 export const { resetCourse } = coursesSlice.actions;
 
