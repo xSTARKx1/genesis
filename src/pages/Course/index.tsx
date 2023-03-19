@@ -2,6 +2,7 @@ import { useParams } from 'react-router-dom';
 import { useEffect, useRef, useState } from 'react';
 import { Rate, Tag, Space } from 'antd';
 import ReactHlsPlayer from 'react-hls-player';
+import { LockOutlined } from '@ant-design/icons';
 
 import {
   courseStatus,
@@ -109,7 +110,8 @@ const Course = () => {
                         src={`${previewImageLink}/lesson-${order}.webp`}
                       />
                       <div className='title'>
-                        Lesson {order}: {title}
+                        Lesson {order}: {title}{' '}
+                        {isLockedLesson ? <LockOutlined /> : null}
                       </div>
                     </li>
                   );
