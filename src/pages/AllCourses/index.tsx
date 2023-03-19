@@ -7,6 +7,7 @@ import {
   getCoursesAsync,
   selectCourses,
   selectToken,
+  resetCourse,
 } from '../../features/courses/coursesSlice';
 
 import './index.scss';
@@ -18,6 +19,7 @@ const AllCourses = () => {
 
   useEffect(() => {
     if (token) {
+      dispatch(resetCourse());
       dispatch(getCoursesAsync(token));
     }
   }, [token, dispatch]);
@@ -37,7 +39,7 @@ const AllCourses = () => {
 
   return (
     <div className='main-wrapper'>
-      <h1>All courses</h1>
+      <h1 className='page-title'>All courses</h1>
       <ul className='course-list'>
         {courses.slice(firstContentIndex, lastContentIndex).map((course) => {
           return (
@@ -47,13 +49,15 @@ const AllCourses = () => {
           );
         })}
       </ul>
-      <Pagination
-        nextPage={nextPage}
-        prevPage={prevPage}
-        page={page}
-        setPage={setPage}
-        totalPages={totalPages}
-      />
+      {courses.length > 0 && (
+        <Pagination
+          nextPage={nextPage}
+          prevPage={prevPage}
+          page={page}
+          setPage={setPage}
+          totalPages={totalPages}
+        />
+      )}
     </div>
   );
 };

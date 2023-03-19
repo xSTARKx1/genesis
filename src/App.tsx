@@ -18,7 +18,7 @@ function App() {
     <BrowserRouter>
       <Routes>
         <Route path='/all-courses' element={<AllCourses />} />
-        <Route path='/course/:id' element={<Course />} />
+        <Route path='/course/:courseId' element={<Course />} />
         <Route path='*' element={<Navigate to={'/all-courses'} replace />} />
       </Routes>
     </BrowserRouter>

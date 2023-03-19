@@ -1,6 +1,7 @@
 import { createAsyncThunk, createSlice } from '@reduxjs/toolkit';
+
 import { RootState } from '../../app/store';
-import { fetchToken, getCourses } from './coursesAPI';
+import { fetchToken, fetchCourses, fetchCourse } from './coursesAPI';
 import { Course } from '../../types';
 
 interface coursesState {
@@ -8,6 +9,13 @@ interface coursesState {
   tokenStatus: string;
   courses: Course[];
   coursesStatus: string;
+  course: Course | null;
+  courseStatus: string;
+}
+
+interface CourseParams {
+  courseId: string;
+  token: string;
 }
 
 const initialState: coursesState = {
@@ -15,6 +23,8 @@ const initialState: coursesState = {
   tokenStatus: 'idle',
   courses: [],
   coursesStatus: 'idle',
+  course: null,
+  courseStatus: 'idle',
 };
 
 export const getTokenAsync = createAsyncThunk(
@@ -27,7 +37,15 @@ export const getTokenAsync = createAsyncThunk(
 export const getCoursesAsync = createAsyncThunk(
   'courses/fetchCourses',
   async (token: string) => {
-    const response = await getCourses(token);
+    const response = await fetchCourses(token);
+    return response.data;
+  }
+);
+
+export const getCourseAsync = createAsyncThunk(
+  'courses/fetchCourse',
+  async ({ courseId, token }: CourseParams) => {
+    const response = await fetchCourse(courseId, token);
     return response.data;
   }
 );
@@ -36,8 +54,9 @@ export const coursesSlice = createSlice({
   name: 'courses',
   initialState,
   reducers: {
-    resetToken: () => ({
-      ...initialState,
+    resetCourse: (state) => ({
+      ...state,
+      course: null,
     }),
   },
   extraReducers: (builder) => {
@@ -61,13 +80,24 @@ export const coursesSlice = createSlice({
       })
       .addCase(getCoursesAsync.rejected, (state) => {
         state.coursesStatus = 'error';
+      })
+      .addCase(getCourseAsync.pending, (state) => {
+        state.courseStatus = 'loading';
+      })
+      .addCase(getCourseAsync.fulfilled, (state, action) => {
+        state.courseStatus = 'idle';
+        state.course = action.payload;
+      })
+      .addCase(getCourseAsync.rejected, (state) => {
+        state.courseStatus = 'error';
       });
   },
 });
 
 export const selectToken = (state: RootState) => state.courses.accessToken;
 export const selectCourses = (state: RootState) => state.courses.courses;
+export const selectCourse = (state: RootState) => state.courses.course;
 
-export const { resetToken } = coursesSlice.actions;
+export const { resetCourse } = coursesSlice.actions;
 
 export default coursesSlice.reducer;

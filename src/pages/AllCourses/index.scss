@@ -3,3 +3,13 @@
   grid-gap: 10px 6px;
   grid-template-columns: repeat(2, [col] 1fr);
 }
+
+.page-title {
+  font-family: 'Roboto', sans-serif;
+  font-weight: 700;
+  font-size: 70px;
+  text-align: center;
+  padding: 40px 0 0 0;
+  margin-bottom: 40px;
+  line-height: 1.5;
+}

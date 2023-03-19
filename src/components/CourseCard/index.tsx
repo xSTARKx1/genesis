@@ -1,13 +1,17 @@
-import { FC } from 'react';
+import { FC, useRef } from 'react';
+import ReactHlsPlayer from 'react-hls-player';
 import { Link } from 'react-router-dom';
-import { Tag, Rate } from 'antd';
+import { Tag, Rate, Space } from 'antd';
+
+import { Course } from '../../types';
 
 import './index.scss';
 
 interface Props {
-  course: any;
+  course: Course;
 }
 const CourseCard: FC<Props> = (props) => {
+  const playerRef = useRef<HTMLVideoElement>(null);
   const { course } = props;
 
   return (
@@ -24,20 +28,6 @@ const CourseCard: FC<Props> = (props) => {
         {/*    playerRef={playerRef}*/}
         {/*  />*/}
         {/*) : (*/}
-        {/*  <video*/}
-        {/*    // className='card__image'*/}
-        {/*    autoPlay={true}*/}
-        {/*    muted={true}*/}
-        {/*    controls={true}*/}
-        {/*    // width='960'*/}
-        {/*    // height='540'*/}
-        {/*    // poster={`${course.previewImageLink}/cover.webp`}*/}
-        {/*  >*/}
-        {/*    <source*/}
-        {/*      src={`${course.meta.courseVideoPreview.link}`}*/}
-        {/*      type='application/x-mpegURL'*/}
-        {/*    ></source>*/}
-        {/*  </video>*/}
         <img
           src={`${course.previewImageLink}/cover.webp`}
           alt={course.title}
@@ -46,19 +36,29 @@ const CourseCard: FC<Props> = (props) => {
         {/*)}*/}
       </div>
       <div className='card__info'>
-        <h2>{course.title}</h2>
+        <h2 className='title'>{course.title}</h2>
+        <h3 className='description'>{course.description}</h3>
         <Rate allowHalf defaultValue={course.rating} disabled={true} />
-        <h3>{course.description}</h3>
-        <h3>Кількість уроків: {course.lessonsCount}</h3>
-        {course.meta.skills &&
-          course.meta.skills.map((skill: string) => {
-            return (
-              <Tag key={skill} color='purple'>
-                {skill}
-              </Tag>
-            );
-          })}
-        <Link to={`/course/${course.id}`}>More details</Link>
+        <h3 className='description'>
+          Lessons available: {course.lessonsCount}
+        </h3>
+        <div>
+          <Space size={[2, 8]} wrap>
+            {course.meta.skills &&
+              course.meta.skills.map((skill: string) => {
+                return (
+                  <Tag key={skill} color='purple'>
+                    {skill}
+                  </Tag>
+                );
+              })}
+          </Space>
+        </div>
+        <div className='redirect-button-wrapper'>
+          <Link to={`/course/${course.id}`} className='button'>
+            More details
+          </Link>
+        </div>
       </div>
     </div>
   );

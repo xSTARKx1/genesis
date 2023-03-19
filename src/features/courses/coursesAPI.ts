@@ -13,7 +13,7 @@ const fetchToken = async () => {
   return axios.get('/auth/anonymous?platform=subscriptions', baseConfig);
 };
 
-const getCourses = async (token: string) => {
+const fetchCourses = async (token: string) => {
   return axios.get('/core/preview-courses', {
     headers: {
       ...baseConfig.headers,
@@ -22,4 +22,13 @@ const getCourses = async (token: string) => {
   });
 };
 
-export { fetchToken, getCourses };
+const fetchCourse = async (courseId: string, token: string) => {
+  return axios.get(`/core/preview-courses/${courseId}`, {
+    headers: {
+      ...baseConfig.headers,
+      Authorization: `Bearer ${token}`,
+    },
+  });
+};
+
+export { fetchToken, fetchCourses, fetchCourse };
