@@ -1,7 +1,12 @@
 import { useEffect } from 'react';
 
 import usePagination from '../../app/UsePagination';
-import { CourseCard, Pagination, Spinner } from '../../components';
+import {
+  CourseCard,
+  Pagination,
+  Spinner,
+  ErrorMessage,
+} from '../../components';
 import { useAppDispatch, useAppSelector } from '../../app/hooks';
 import {
   getCoursesAsync,
@@ -66,7 +71,13 @@ const AllCourses = () => {
           )}
         </>
       ) : (
-        <Spinner />
+        <>
+          {loadingStatus === 'error' ? (
+            <ErrorMessage message='Try Again!' />
+          ) : (
+            <Spinner />
+          )}
+        </>
       )}
     </div>
   );

@@ -9,7 +9,7 @@ import {
   selectCourse,
   selectToken,
 } from '../../features/courses/coursesSlice';
-import { Spinner } from '../../components';
+import { ErrorMessage, Spinner } from '../../components';
 import { useAppDispatch, useAppSelector } from '../../app/hooks';
 import { Lesson } from '../../types';
 
@@ -118,7 +118,13 @@ const Course = () => {
           </section>
         </>
       ) : (
-        <Spinner />
+        <>
+          {loadingStatus === 'error' ? (
+            <ErrorMessage message='Try Again!' />
+          ) : (
+            <Spinner />
+          )}
+        </>
       )}
     </div>
   );
